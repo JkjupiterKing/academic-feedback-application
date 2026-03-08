@@ -1,0 +1,107 @@
+/* General body styling */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: rgba(0, 213, 255, 1);
+    animation: fadeIn 0.8s ease-in;
+  }
+  
+  /* Sidebar styling */
+  .sidebar {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    width: 250px; /* Fixed width for the sidebar */
+    background-color: #222;
+    color: #fff;
+    padding-top: 20px;
+    transition: width 0.75s ease;
+    overflow-y: auto;
+    animation: slideInLeft 0.6s ease-out;
+  }
+  
+  .sidebar .nav-link {
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    padding: 10px 0;
+    border-radius: 0.5rem;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  .sidebar .nav-link i {
+    padding-right: 10px;
+  }
+  
+  .sidebar .nav-link:hover {
+    background-color: #444;
+    color: #ffcc00;
+    transform: translateX(10px);
+    transition: all 0.3s ease;
+  }
+  
+  
+ 
+
+  /* Container for the staff management section */
+main {
+  margin-left: 250px; 
+    padding: 40px;
+    background-color: #3c9db6;
+    min-height: 100vh;
+    animation: fadeIn 0.7s ease-in;
+}
+
+
+
+/* Title styling */
+h1 {
+  color: #343a40;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+table th, table td {
+  text-align: center;
+ 
+}
+
+/* Center the form and add a border */
+.edit-form-container {
+  max-width: 600px;  /* Set maximum width for the form */
+  margin: 0 auto;    /* Center horizontally */
+  padding: 20px;
+  border: 1px solid #ccc; /* Border around the form */
+  border-radius: 8px;  /* Rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional shadow for a 3D effect */
+  background-color: #fff;
+}
+
+/* Smaller text fields */
+.edit-form-container .form-control {
+  font-size: 0.875rem;  /* Smaller font size */
+  padding: 8px;         /* Smaller padding for the text fields */
+}
+
+/* Style for the form title */
+.edit-form-container h3 {
+  font-size: 1.25rem; /* Adjust title size */
+  color: #333;
+  margin-bottom: 20px;
+}
+
+/* Add margin to buttons for proper spacing */
+.edit-form-container .btn {
+  font-size: 0.875rem;
+  padding: 10px 20px;
+}
+
+.edit-form-container .btn-lg {
+  font-size: 1rem;  /* Larger text for save and cancel buttons */
+}
+
+/* Optional: Adjust button spacing */
+.edit-form-container .btn-success {
+  margin-right: 10px;
+}

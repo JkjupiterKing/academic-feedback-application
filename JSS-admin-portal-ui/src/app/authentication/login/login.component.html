@@ -1,0 +1,80 @@
+<section class="login-page">
+  <div class="container">
+    <!-- Decorative Shapes -->
+    <div class="decorative-shape shape-1"></div>
+    <div class="decorative-shape shape-2"></div>
+
+    <div class="content">
+      <!-- Logo -->
+      <div class="logo">
+        <div class="logo-icon"></div>
+        <span class="logo-text">GPT Admin</span>
+      </div>
+
+      <p class="tagline">Student & Staff Management Portal</p>
+
+      <h1 class="welcome">Welcome Back!</h1>
+
+      <form (ngSubmit)="onLoginSubmit()" #loginForm="ngForm">
+        <!-- Email -->
+        <div class="form-group">
+          <label for="email">Email</label>
+          <div class="input-wrapper">
+            <input 
+              type="email" 
+              id="email" 
+              placeholder="admin@example.com"
+              [(ngModel)]="loginData.email" 
+              name="email" 
+              required 
+            />
+            <span class="validation-icon" *ngIf="loginData.email">✓</span>
+          </div>
+          <p class="helper-text success" *ngIf="loginData.email">Email is valid</p>
+        </div>
+
+        <!-- Password -->
+        <div class="form-group">
+          <label for="password">Password</label>
+          <div class="input-wrapper">
+            <input 
+              [type]="showPassword ? 'text' : 'password'" 
+              id="password" 
+              placeholder="Enter your password"
+              [(ngModel)]="loginData.password" 
+              name="password" 
+              required 
+            />
+            <span class="toggle-password" (click)="togglePassword()">
+              {{ showPassword ? '👁' : '👁‍🗨' }}
+            </span>
+          </div>
+          <p class="helper-text info" *ngIf="loginData.password && loginData.password.length >= 8">
+            Your password is strong
+          </p>
+        </div>
+
+        <!-- Sign In Button -->
+        <button type="submit" class="sign-in-btn">Sign In</button>
+
+        <!-- Forgot Password -->
+        <div class="forgot-password">
+          <a href="#">Forgot My Password?</a>
+        </div>
+
+        <!-- Footer Links -->
+        <div class="footer-links">
+          <a href="#">Terms of Use</a>
+          <span style="color: rgba(255, 255, 255, 0.3);">|</span>
+          <a href="#">Privacy Policy</a>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Footer Buttons -->
+  <div class="footer-buttons">
+    <button class="footer-btn" (click)="onRegister()">Request An Account</button>
+    <button class="footer-btn" (click)="onHelp()">Need Help?</button>
+  </div>
+</section>

@@ -1,0 +1,65 @@
+.org-chart {
+  margin-top: 40px;
+  position: relative;
+}
+
+/* Styling for each staff node */
+.node {
+  display: inline-block;
+  margin: 20px 10px;
+  padding: 15px;
+  background-color: #4CAF50;
+  color: white;
+  border-radius: 5px;
+  width: 120px; /* Adjusted width */
+  font-size: 16px;
+  text-align: center;
+  position: relative;
+  z-index: 2; /* Ensure nodes are above the lines */
+}
+
+/* Horizontal line connecting HOD to staff */
+.line-horizontal {
+  width: 100%;
+  height: 4px;
+  background-color: #4CAF50;
+  margin-top: 20px;
+  margin-bottom: 40px;
+  position: relative;
+  z-index: 1;
+}
+
+/* Vertical lines that connect each staff node */
+.line-vertical {
+  width: 20px;
+  height: 50px;
+  background-color: #4CAF50;
+  margin: 0 auto;
+  position: absolute;
+  top: -50px; /* Align vertical line properly with the staff node */
+  left: 50%;
+  transform: translateX(-50%); /* Center the vertical line */
+}
+
+/* Ensure each staff member takes up equal space in the row */
+.col-2 {
+  flex: 0 0 16.66%;
+  max-width: 16.66%;
+  text-align: center;
+  position: relative;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 767px) {
+  .col-2 {
+    flex: 0 0 50%;
+    max-width: 50%; /* Stack in two columns for small screens */
+  }
+}
+
+@media (max-width: 480px) {
+  .col-2 {
+    flex: 0 0 100%;
+    max-width: 100%; /* Stack in one column for extra small screens */
+  }
+}

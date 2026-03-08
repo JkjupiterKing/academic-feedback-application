@@ -1,0 +1,242 @@
+<div class="container-fluid">
+  <div class="row no-gutters">
+    <nav class="col-md-3 col-lg-2 d-md-block bg-dark sidebar" id="sidebarMenu">
+      <div class="position-sticky">
+        <ul class="nav flex-column">
+          <li class="nav-item mb-3">
+            <a routerLink="/sidemenu/home" routerLinkActive="active" (click)="home()" class="nav-link text-white">
+              <i class="bi bi-house mr-2"></i> Home
+            </a>
+          </li>
+          <li class="nav-item mb-3">
+            <a routerLink="/sidemenu/time-table" routerLinkActive="active" (click)="timetable()"
+              class="nav-link text-white">
+              <i class="bi bi-calendar3 mr-2"></i> Time Table
+            </a>
+          </li>
+          <li class="nav-item mb-3">
+            <a routerLink="/sidemenu/staff-management" routerLinkActive="active" (click)="staffmanagement()"
+              class="nav-link text-white">
+              <i class="bi bi-person-fill mr-2"></i> Staff Management
+            </a>
+          </li>
+          <li class="nav-item mb-3">
+            <a routerLink="/sidemenu/students-management" routerLinkActive="active" (click)="studentsmanagement()"
+              class="nav-link text-white">
+              <i class="bi bi-person-workspace mr-2"></i> Students Management
+            </a>
+          </li>
+
+          <li class="nav-item mb-3">
+            <a routerLink="/sidemenu/attendance-management" routerLinkActive="active" class="nav-link text-white">
+              <i class="bi bi-folder2-open mr-2"></i> Attendance Documents
+            </a>
+          </li>
+          <li class="nav-item mb-3">
+            <a routerLink="/sidemenu/new-attendance-management" routerLinkActive="active" class="nav-link text-white">
+              <i class="bi bi-check-square mr-2"></i> Daily Attendance
+            </a>
+          </li>
+          <li class="nav-item mb-3">
+            <a routerLink="/sidemenu/question-bank" routerLinkActive="active" (click)="questionbank()"
+              class="nav-link text-white">
+              <i class="bi bi-book mr-2"></i> Question Bank
+            </a>
+          </li>
+          <li class="nav-item mb-3">
+            <a routerLink="/sidemenu/ia-module" routerLinkActive="active" (click)="iamodule()"
+              class="nav-link text-white">
+              <i class="bi bi-card-list mr-2"></i> IA Module
+            </a>
+          </li>
+          <li class="nav-item mb-3">
+            <a routerLink="/sidemenu/feedback-system" routerLinkActive="active" (click)="feedbacksystem()"
+              class="nav-link text-white">
+              <i class="bi bi-chat-dots mr-2"></i> Feedback System
+            </a>
+          </li>
+          <li class="nav-item mb-3">
+            <a routerLink="/sidemenu/lesson-plan" routerLinkActive="active" (click)="lessonplan()"
+              class="nav-link text-white">
+              <i class="bi bi-file-earmark-text mr-2"></i> Lesson Plan
+            </a>
+          </li>
+          <li class="nav-item mb-3">
+            <a routerLink="/sidemenu/subject-management" routerLinkActive="active" (click)="subjectmanagement()"
+              class="nav-link text-white">
+              <i class="bi bi-journal mr-2"></i> Subject Management
+            </a>
+          </li>
+          <li class="nav-item mb-3">
+            <a routerLink="/sidemenu/teaching-aids" routerLinkActive="active" (click)="teachingaids()"
+              class="nav-link text-white">
+              <i class="bi bi-easel mr-2"></i> Teaching Aids
+            </a>
+          </li>
+          <!-- <li class="nav-item mb-3">
+            <a
+              routerLink="/personal-documents"
+              routerLinkActive="active"
+              (click)="personaldocuments()"
+              class="nav-link text-white"
+            >
+              <i class="bi bi-folder mr-2"></i> Personal Documents
+            </a>
+          </li> -->
+          <li class="nav-item mb-3">
+            <a (click)="logout()" class="nav-link text-white">
+              <i class="bi bi-box-arrow-right mr-2"></i> Logout
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="page-wrapper"
+      style="background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1434682852151-68945693d25d?q=80&w=2074&auto=format&fit=crop'); background-size: cover; background-position: center; background-attachment: fixed; min-height: 100vh;">
+      <main class="col-md-9 col-lg-10 px-4 pt-4 main-content">
+        <h2 class="text-center">ATTENDANCE MANAGEMENT</h2>
+
+        <!-- Semester Selection Dropdown -->
+        <div class="form-group">
+          <label for="semester">Select Semester:</label>
+          <select [(ngModel)]="selectedSemester" name="semester" id="semester" class="form-control"
+            (change)="onSemesterChange()">
+            <option value="" disabled selected>Select Semester</option>
+            <option *ngFor="let sem of semesters" [value]="sem">
+              {{ sem }}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group mb-3">
+          <label for="subject" class="form-label">Select Subject:</label>
+          <select [(ngModel)]="selectedSubject" name="subject" class="form-control" required
+            [disabled]="!selectedSemester || loadingSubjects">
+            <option value="" disabled>Select Subject</option>
+            <option *ngFor="let subject of subjects" [value]="subject.id">
+              {{ subject.subject }} ({{ subject.subjectCode }})
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group mb-3">
+          <label for="date" class="form-label">Select Date :</label>
+          <input type="date" [(ngModel)]="selectedDate" />
+          <p>
+            <b>Selected Date: {{ selectedDate }}</b>
+          </p>
+        </div>
+
+        <!-- Display Documents in Table -->
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Student Name</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let stu of semStudents">
+              <td>{{ stu.userName }}</td>
+              <td style="
+                  display: flex;
+                  justify-content: start;
+                  flex-direction: column;
+                ">
+                <select [(ngModel)]="stu.attendenceStatus">
+                  <option value="" disabled>Select Status</option>
+                  <option *ngFor="let status of statuses" [value]="status">
+                    {{ status }}
+                  </option>
+                </select>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <!-- View Documents Button -->
+        <button (click)="updateAttendence()" class="btn btn-primary">
+          Update Attendance
+        </button>
+        <!-- View Documents Button -->
+        <button (click)="viewQuestionBank()" class="btn btn-primary">
+          View Attendance
+        </button>
+
+        <!-- Modal for Viewing Documents -->
+        <div *ngIf="showModal" class="modal-overlay">
+          <div class="modal-content">
+            <span (click)="closeModal()" class="close">&times;</span>
+            <h3>Attendance</h3>
+
+            <div style="
+                display: flex;
+                justify-content: space-around;
+                flex-direction: column;
+              ">
+              <!-- Semester Dropdown inside Modal -->
+              <div class="form-group">
+                <label for="semesterModal">Select Semester:</label>
+                <select [(ngModel)]="selectedSemesterInModal" name="semesterModal" id="semesterModal"
+                  class="form-control" (change)="onSemesterChangeInModal()">
+                  <option value="" disabled selected>Select Semester</option>
+                  <option *ngFor="let sem of semesters" [value]="sem">
+                    {{ sem }}
+                  </option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="subjectModal">Select Subject:</label>
+                <select [(ngModel)]="selectedSubjectInModal" name="subjectModal" id="subjectModal" class="form-control">
+                  <option value="" disabled>Select Subject</option>
+                  <option *ngFor="let sub of subjectsInModal" [value]="sub.id">
+                    {{ sub.subject }}
+                  </option>
+                </select>
+              </div>
+
+              <div class="form-group mb-3">
+                <label for="date" class="form-label">Start Date :</label>
+                <input type="date" [(ngModel)]="selectedStartDate" />
+                <p>Selected Start Date: {{ selectedStartDate }}</p>
+              </div>
+
+              <div class="form-group mb-3">
+                <label for="date" class="form-label">End Date :</label>
+                <input type="date" [(ngModel)]="selectedEndDate" />
+                <p>Selected End Date: {{ selectedEndDate }}</p>
+              </div>
+            </div>
+
+            <!-- View Documents Button -->
+            <button (click)="getAttendence()" class="btn btn-primary">
+              View Attendence
+            </button>
+
+            <div style="max-width: 500px">
+              <table class="table-new">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th *ngFor="let date of dateHeaders">{{ date }}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let student of semStudentsInModal">
+                    <td>{{ student.userName }}</td>
+                    <td *ngFor="let date of dateHeaders">
+                      <div>
+                        {{ attendanceMap[student.studentId]?.[date] }}
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,199 @@
+<div class="container-fluid p-0">
+  <div class="row g-0">
+    <!-- Sidebar -->
+    <nav class="col-md-3 col-lg-2 sidebar animate-slide-in-left">
+      <div class="sidebar-brand">
+        <h4>ADMIN PORTAL</h4>
+      </div>
+      <div class="position-sticky">
+        <ul class="nav flex-column px-2">
+          <li class="nav-item">
+            <a routerLink="/sidemenu/home" routerLinkActive="active" class="nav-link">
+              <i class="bi bi-grid-1x2-fill"></i> Dashboard
+            </a>
+          </li>
+          <li class="nav-item">
+            <a routerLink="/sidemenu/time-table" routerLinkActive="active" class="nav-link">
+              <i class="bi bi-calendar3"></i> Time Table
+            </a>
+          </li>
+          <li class="nav-item">
+            <a routerLink="/sidemenu/staff-management" routerLinkActive="active" class="nav-link">
+              <i class="bi bi-people-fill"></i> Staff Management
+            </a>
+          </li>
+          <li class="nav-item">
+            <a routerLink="/sidemenu/students-management" routerLinkActive="active" class="nav-link">
+              <i class="bi bi-mortarboard-fill"></i> Students
+            </a>
+          </li>
+          <li class="nav-item">
+            <a routerLink="/sidemenu/attendance-management" routerLinkActive="active" class="nav-link">
+              <i class="bi bi-calendar-check-fill"></i> Attendance
+            </a>
+          </li>
+          <li class="nav-item">
+            <a routerLink="/sidemenu/question-bank" routerLinkActive="active" class="nav-link">
+              <i class="bi bi-journal-bookmark-fill"></i> Question Bank
+            </a>
+          </li>
+          <li class="nav-item">
+            <a routerLink="/sidemenu/ia-module" routerLinkActive="active" class="nav-link">
+              <i class="bi bi-card-checklist"></i> IA Module
+            </a>
+          </li>
+          <li class="nav-item">
+            <a routerLink="/sidemenu/feedback-system" routerLinkActive="active" class="nav-link">
+              <i class="bi bi-chat-left-dots-fill"></i> Feedback
+            </a>
+          </li>
+          <li class="nav-item">
+            <a routerLink="/sidemenu/lesson-plan" routerLinkActive="active" class="nav-link">
+              <i class="bi bi-file-earmark-text-fill"></i> Lesson Plan
+            </a>
+          </li>
+          <li class="nav-item">
+            <a routerLink="/sidemenu/subject-management" routerLinkActive="active" class="nav-link">
+              <i class="bi bi-book-half"></i> Subjects
+            </a>
+          </li>
+          <li class="nav-item">
+            <a routerLink="/sidemenu/teaching-aids" routerLinkActive="active" class="nav-link">
+              <i class="bi bi-easel2-fill"></i> Teaching Aids
+            </a>
+          </li>
+          <li class="nav-item mt-4 pt-4 border-top border-secondary">
+            <a (click)="logout()" class="nav-link text-danger-emphasis">
+              <i class="bi bi-box-arrow-right"></i> Logout
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="col-md-9 col-lg-10 content master-layout-bg" style="background-image: url('assets/Background3.jpg');">
+
+      <div class="welcome-section animate-slide-in-top">
+        <h1>Welcome Back, Admin</h1>
+        <p>Computer Science and Engineering Department</p>
+      </div>
+
+      <!-- Stats Grid -->
+      <div class="stats-grid animate-fade-in">
+        <div class="card glass-card stat-card">
+          <div class="stat-icon" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+            <i class="bi bi-people"></i>
+          </div>
+          <div class="stat-info">
+            <span>Total Staff</span>
+            <h2>{{ staffMembers.length || 24 }}</h2>
+          </div>
+        </div>
+        <div class="card glass-card stat-card">
+          <div class="stat-icon" style="background: linear-gradient(135deg, #4fd1c5 0%, #38b2ac 100%);">
+            <i class="bi bi-mortarboard"></i>
+          </div>
+          <div class="stat-info">
+            <span>Total Students</span>
+            <h2>450+</h2>
+          </div>
+        </div>
+        <div class="card glass-card stat-card">
+          <div class="stat-icon" style="background: linear-gradient(135deg, #f6ad55 0%, #ed8936 100%);">
+            <i class="bi bi-calendar-event"></i>
+          </div>
+          <div class="stat-info">
+            <span>Academic Year</span>
+            <h2>2024-25</h2>
+          </div>
+        </div>
+        <div class="card glass-card stat-card">
+          <div class="stat-icon" style="background: linear-gradient(135deg, #f56565 0%, #e53e3e 100%);">
+            <i class="bi bi-bell"></i>
+          </div>
+          <div class="stat-info">
+            <span>Active Alerts</span>
+            <h2>12</h2>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <!-- About Section -->
+        <div class="col-lg-7">
+          <div class="card glass-card about-card animate-slide-in-left">
+            <div class="card-body">
+              <div class="about-header">
+                <i class="bi bi-bank2 fs-4 text-accent"></i>
+                <h4>About GPT Polytechnic</h4>
+              </div>
+              <p style="color: rgba(255,255,255,0.85); line-height: 1.8;">
+                The GPT Polytechnic, Chamarajanagar was established in the year 1984, is a premier,
+                AICTE-approved, government-run institution in Karnataka. Situated on a 27-acre campus in Galipur,
+                it provides excellence in technical education across multiple disciplines.
+              </p>
+              <div class="d-flex gap-3 mt-4">
+                <button class="premium-btn">Explore More</button>
+                <button class="btn btn-outline-light rounded-3 px-4">View Gallery</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Recent Feed Section -->
+        <div class="col-lg-5">
+          <div class="card glass-panel animate-slide-in-right h-100">
+            <div class="card-body">
+              <h5 class="mb-4 d-flex align-items-center gap-2">
+                <i class="bi bi-activity text-accent"></i>
+                Recent Activity
+              </h5>
+              <div class="update-feed-container">
+                <!-- Activity Item 1 -->
+                <div class="glass-card mb-3 p-3 border-0" style="background: rgba(255,255,255,0.05) !important;">
+                  <div class="d-flex align-items-start gap-3">
+                    <div class="p-2 rounded-circle bg-success bg-opacity-25">
+                      <i class="bi bi-person-check text-success"></i>
+                    </div>
+                    <div class="flex-grow-1">
+                      <h6 class="mb-1 text-white">Registration Approved</h6>
+                      <p class="small text-white-50 mb-0">Rahul Kumar's registration for Semester 4 was successful.</p>
+                      <small class="text-accent">Just now</small>
+                    </div>
+                  </div>
+                </div>
+                <!-- Activity Item 2 -->
+                <div class="glass-card mb-3 p-3 border-0" style="background: rgba(255,255,255,0.05) !important;">
+                  <div class="d-flex align-items-start gap-3">
+                    <div class="p-2 rounded-circle bg-warning bg-opacity-25">
+                      <i class="bi bi-chat-quote text-warning"></i>
+                    </div>
+                    <div class="flex-grow-1">
+                      <h6 class="mb-1 text-white">Feedback Received</h6>
+                      <p class="small text-white-50 mb-0">New feedback submitted for CS402 by Priya Sharma.</p>
+                      <small class="text-white-50">15 mins ago</small>
+                    </div>
+                  </div>
+                </div>
+                <!-- Activity Item 3 -->
+                <div class="glass-card mb-3 p-3 border-0" style="background: rgba(255,255,255,0.05) !important;">
+                  <div class="d-flex align-items-start gap-3">
+                    <div class="p-2 rounded-circle bg-info bg-opacity-25">
+                      <i class="bi bi-cloud-upload text-info"></i>
+                    </div>
+                    <div class="flex-grow-1">
+                      <h6 class="mb-1 text-white">IA Marks Uploaded</h6>
+                      <p class="small text-white-50 mb-0">Computer Networks IA marks are now live.</p>
+                      <small class="text-white-50">1 hour ago</small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>

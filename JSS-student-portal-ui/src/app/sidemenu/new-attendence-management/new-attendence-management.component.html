@@ -1,0 +1,197 @@
+<div class="container-fluid">
+  <div class="row no-gutters">
+    <nav class="col-md-3 col-lg-2 d-md-block bg-dark sidebar" id="sidebarMenu">
+      <div class="position-sticky">
+        <ul class="nav flex-column">
+          <li class="nav-item mb-3">
+            <a
+              routerLink="/home"
+              routerLinkActive="active"
+              (click)="home()"
+              class="nav-link text-white"
+            >
+              <i class="bi bi-house mr-2"></i> Home
+            </a>
+          </li>
+          <li class="nav-item mb-3">
+            <a
+              routerLink="/time-table"
+              routerLinkActive="active"
+              (click)="timetable()"
+              class="nav-link text-white"
+            >
+              <i class="bi bi-calendar3 mr-2"></i> Time Table
+            </a>
+          </li>
+
+          <li class="nav-item mb-3">
+            <a
+              routerLink="/attendance-management"
+              routerLinkActive="active"
+              (click)="newAttendancemanagement()"
+              class="nav-link text-white"
+            >
+              <i class="bi bi-check-square mr-2"></i> Attendance Management
+            </a>
+          </li>
+
+          <li class="nav-item mb-3">
+            <a
+              routerLink="/ia-module"
+              routerLinkActive="active"
+              (click)="iamodule()"
+              class="nav-link text-white"
+            >
+              <i class="bi bi-card-list mr-2"></i> IA Module
+            </a>
+          </li>
+
+          <li class="nav-item mb-3">
+            <a
+              routerLink="/question-bank"
+              routerLinkActive="active"
+              (click)="questionbank()"
+              class="nav-link text-white"
+            >
+              <i class="bi bi-book mr-2"></i> Question Bank
+            </a>
+          </li>
+
+          <li class="nav-item mb-3">
+            <a
+              routerLink="/feedback-system"
+              routerLinkActive="active"
+              (click)="feedbacksystem()"
+              class="nav-link text-white"
+            >
+              <i class="bi bi-chat-dots mr-2"></i> Feedback System
+            </a>
+          </li>
+          <li class="nav-item mb-3">
+            <a
+              routerLink="/lesson-plan"
+              routerLinkActive="active"
+              (click)="lessonplan()"
+              class="nav-link text-white"
+            >
+              <i class="bi bi-file-earmark-text mr-2"></i> Lesson Plan
+            </a>
+          </li>
+
+          <li class="nav-item mb-3">
+            <a
+              routerLink="/teaching-aids"
+              routerLinkActive="active"
+              (click)="teachingaids()"
+              class="nav-link text-white"
+            >
+              <i class="bi bi-easel mr-2"></i> Teaching Aids
+            </a>
+          </li>
+          <!-- <li class="nav-item mb-3">
+            <a
+              routerLink="/personal-documents"
+              routerLinkActive="active"
+              (click)="personaldocuments()"
+              class="nav-link text-white"
+            >
+              <i class="bi bi-folder mr-2"></i> Personal Documents
+            </a>
+          </li> -->
+          <li class="nav-item mb-3">
+            <a (click)="logout()" class="nav-link text-white">
+              <i class="bi bi-box-arrow-right mr-2"></i> Logout
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="page-wrapper" style="background-image: url(./attendance.webp)">
+      <main class="col-md-9 col-lg-10 px-4 pt-4 main-content">
+        <h2 class="text-center">ATTENDANCE MANAGEMENT</h2>
+
+        <!-- View Documents Button -->
+        <button (click)="viewQuestionBank()" class="btn btn-primary">
+          View Attendance Details
+        </button>
+
+        <!-- Modal for Viewing Documents -->
+        <div *ngIf="showModal" class="modal-overlay">
+          <div class="modal-content">
+            <span (click)="closeModal()" class="close">&times;</span>
+            <h3>View Attendance</h3>
+
+            <div
+              style="
+                display: flex;
+                justify-content: space-around;
+                flex-direction: column;
+              "
+            >
+              <!-- Semester Dropdown inside Modal -->
+              <div class="form-group">
+                <label for="sem" class="form-label"
+                  >Semester: {{ selectedSemesterInModal }}</label
+                >
+              </div>
+
+              <div class="form-group">
+                <label for="subjectModal">Select Subject:</label>
+                <select
+                  [(ngModel)]="selectedSubjectInModal"
+                  name="subjectModal"
+                  id="subjectModal"
+                  class="form-control"
+                >
+                  <option value="" disabled>Select Subject</option>
+                  <option *ngFor="let sub of subjectsInModal" [value]="sub.id">
+                    {{ sub.subject }}
+                  </option>
+                </select>
+              </div>
+
+              <div class="form-group mb-3">
+                <label for="date" class="form-label">Start Date :</label>
+                <input type="date" [(ngModel)]="selectedStartDate" />
+                <p>Selected Start Date: {{ selectedStartDate }}</p>
+              </div>
+
+              <div class="form-group mb-3">
+                <label for="date" class="form-label">End Date :</label>
+                <input type="date" [(ngModel)]="selectedEndDate" />
+                <p>Selected End Date: {{ selectedEndDate }}</p>
+              </div>
+            </div>
+
+            <!-- View Documents Button -->
+            <button (click)="getAttendence()" class="btn btn-primary">
+              View Attendence
+            </button>
+
+            <div style="max-width: 500px">
+              <table class="table-new">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th *ngFor="let date of dateHeaders">{{ date }}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let student of semStudentsInModal">
+                    <td>{{ student.userName }}</td>
+                    <td *ngFor="let date of dateHeaders">
+                      <div>
+                        {{ attendanceMap[student.studentId][date] }}
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+</div>

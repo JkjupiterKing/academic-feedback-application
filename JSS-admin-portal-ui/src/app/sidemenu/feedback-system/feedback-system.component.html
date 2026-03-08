@@ -1,0 +1,403 @@
+<div class="container-fluid">
+  <div class="row no-gutters">
+    <!-- Sidebar -->
+    <nav class="col-md-3 col-lg-2 d-md-block bg-dark sidebar" id="sidebarMenu">
+      <div class="position-sticky">
+        <ul class="nav flex-column">
+          <li class="nav-item mb-3">
+            <a routerLink="/sidemenu/home" routerLinkActive="active" (click)="home()" class="nav-link text-white">
+              <i class="bi bi-house mr-2"></i> Home
+            </a>
+          </li>
+          <li class="nav-item mb-3">
+            <a routerLink="/sidemenu/time-table" routerLinkActive="active" (click)="timetable()"
+              class="nav-link text-white">
+              <i class="bi bi-calendar3 mr-2"></i> Time Table
+            </a>
+          </li>
+          <li class="nav-item mb-3">
+            <a routerLink="/sidemenu/staff-management" routerLinkActive="active" (click)="staffmanagement()"
+              class="nav-link text-white">
+              <i class="bi bi-person-fill mr-2"></i> Staff Management
+            </a>
+          </li>
+          <li class="nav-item mb-3">
+            <a routerLink="/sidemenu/students-management" routerLinkActive="active" (click)="studentsmanagement()"
+              class="nav-link text-white">
+              <i class="bi bi-person-workspace mr-2"></i> Students Management
+            </a>
+          </li>
+          <li class="nav-item mb-3">
+            <a routerLink="/sidemenu/attendance-management" routerLinkActive="active"
+              (click)="newAttendancemanagement()" class="nav-link text-white">
+              <i class="bi bi-check-square mr-2"></i>Attendance Management
+            </a>
+          </li>
+          <li class="nav-item mb-3">
+            <a routerLink="/sidemenu/question-bank" routerLinkActive="active" (click)="questionbank()"
+              class="nav-link text-white">
+              <i class="bi bi-book mr-2"></i> Question Bank
+            </a>
+          </li>
+          <li class="nav-item mb-3">
+            <a routerLink="/sidemenu/ia-module" routerLinkActive="active" (click)="iamodule()"
+              class="nav-link text-white">
+              <i class="bi bi-card-list mr-2"></i> IA Module
+            </a>
+          </li>
+          <li class="nav-item mb-3">
+            <a routerLink="/sidemenu/feedback-system" routerLinkActive="active" (click)="feedbacksystem()"
+              class="nav-link text-white">
+              <i class="bi bi-chat-dots mr-2"></i> Feedback System
+            </a>
+          </li>
+          <li class="nav-item mb-3">
+            <a routerLink="/sidemenu/lesson-plan" routerLinkActive="active" (click)="lessonplan()"
+              class="nav-link text-white">
+              <i class="bi bi-file-earmark-text mr-2"></i> Lesson Plan
+            </a>
+          </li>
+          <li class="nav-item mb-3">
+            <a routerLink="/sidemenu/subject-management" routerLinkActive="active" (click)="subjectmanagement()"
+              class="nav-link text-white">
+              <i class="bi bi-journal mr-2"></i> Subject Management
+            </a>
+          </li>
+          <li class="nav-item mb-3">
+            <a routerLink="/sidemenu/teaching-aids" routerLinkActive="active" (click)="teachingaids()"
+              class="nav-link text-white">
+              <i class="bi bi-easel mr-2"></i> Teaching Aids
+            </a>
+          </li>
+          <li class="nav-item mb-3">
+            <a (click)="logout()" class="nav-link text-white">
+              <i class="bi bi-box-arrow-right mr-2"></i> Logout
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="col-md-9 col-lg-10 px-4 pt-4"
+      style="background: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)), url('https://images.unsplash.com/photo-1516321318423-f06f85e514b3?q=80&w=2070&auto=format&fit=crop'); background-size: cover; background-position: center; background-attachment: fixed; min-height: 100vh;">
+
+      <div class="container-fluid">
+
+        <!-- Title -->
+        <h1 class="text-center mb-4 fw-bold" style="color:#4fd1c5; letter-spacing:2px;">
+          <i class="bi bi-chat-quote-fill me-2"></i>FEEDBACK SYSTEM
+        </h1>
+
+        <!-- ── View-Mode Tabs ──────────────────────────────────────────── -->
+        <div class="d-flex justify-content-center mb-4 animate-fade-in">
+          <div class="view-mode-tabs">
+            <button class="view-tab" [class.active]="viewMode === 'all'" (click)="setViewMode('all')">
+              <i class="bi bi-grid-fill me-1"></i> All
+            </button>
+            <button class="view-tab" [class.active]="viewMode === 'questions'" (click)="setViewMode('questions')">
+              <i class="bi bi-patch-question-fill me-1"></i> Questions Only
+            </button>
+            <button class="view-tab" [class.active]="viewMode === 'responses'" (click)="setViewMode('responses')">
+              <i class="bi bi-people-fill me-1"></i> Student Responses
+            </button>
+          </div>
+        </div>
+
+        <!-- ── Filter + Search Bar ─────────────────────────────────────── -->
+        <div class="glass-panel p-3 mb-4 animate-fade-in">
+          <div class="row g-3 align-items-end">
+            <!-- Search -->
+            <div class="col-md-4">
+              <label class="text-white-50 small mb-1">Search Question</label>
+              <input type="text" class="form-control glass-input text-white" placeholder="Search by feedback question"
+                [(ngModel)]="searchTerm" (input)="performSearch()" />
+            </div>
+            <!-- Filter Semester -->
+            <div class="col-md-3">
+              <label class="text-white-50 small mb-1">Filter by Semester</label>
+              <select class="form-select glass-input text-white" [(ngModel)]="filterSemester"
+                (change)="onFilterSemesterChange()">
+                <option [ngValue]="null" class="text-dark">All Semesters</option>
+                <option *ngFor="let s of semesters" [ngValue]="s" class="text-dark">Semester {{ s }}</option>
+              </select>
+            </div>
+            <!-- Filter Subject -->
+            <div class="col-md-3">
+              <label class="text-white-50 small mb-1">Filter by Subject</label>
+              <select class="form-select glass-input text-white" [(ngModel)]="filterSubjectId"
+                (change)="onFilterSubjectChange()" [disabled]="!filterSemester">
+                <option [ngValue]="null" class="text-dark">All Subjects</option>
+                <option *ngFor="let sub of filterSubjects" [ngValue]="sub.id" class="text-dark">
+                  {{ sub.subject }}
+                </option>
+              </select>
+            </div>
+            <!-- Create Button -->
+            <div class="col-md-2 text-end" *ngIf="!isUserRole(5)">
+              <button type="button" class="btn btn-primary w-100" data-bs-toggle="modal"
+                data-bs-target="#feedbackModal">
+                <i class="bi bi-plus-circle me-1"></i> Create Question
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ════════════════════════════════════════════════════════════════
+             VIEW: All / Questions — Individual Cards
+             ════════════════════════════════════════════════════════════════ -->
+        <div id="FeedbackFeed" class="feedback-feed mt-2"
+          *ngIf="showTable && (viewMode === 'all' || viewMode === 'questions')">
+          <div *ngFor="let feedback of paginatedFeedbacks; let i = index"
+            class="glass-panel mb-4 animate-fade-in feedback-card"
+            [ngClass]="{'feedback-card-response': isResponse(feedback), 'feedback-card-question': isQuestion(feedback)}">
+
+            <!-- Card Header: Avatar + Name + Type Badge + Serial -->
+            <div class="d-flex align-items-center px-4 pt-4 pb-3">
+              <div class="user-avatar me-3"
+                [ngClass]="{'avatar-student': isResponse(feedback), 'avatar-admin': isQuestion(feedback)}">
+                {{ (feedback.username || 'A')[0].toUpperCase() }}
+              </div>
+              <div class="flex-grow-1">
+                <div class="d-flex align-items-center gap-2">
+                  <h5 class="mb-0 fw-semibold" style="color:#4fd1c5;">
+                    {{ feedback.username || 'Admin' }}
+                  </h5>
+                  <span class="type-badge" *ngIf="isQuestion(feedback)">
+                    <i class="bi bi-patch-question-fill me-1"></i>Question
+                  </span>
+                  <span class="type-badge type-badge-response" *ngIf="isResponse(feedback)">
+                    <i class="bi bi-chat-left-text-fill me-1"></i>Response
+                  </span>
+                </div>
+                <small class="text-white-50"><i class="bi bi-clock me-1"></i>Recent Update</small>
+              </div>
+              <span class="badge-pill-custom badge-num">#{{ (currentPage - 1) * pageSize + i + 1 }}</span>
+            </div>
+
+            <!-- Info Strip: Semester, Subject, Rating -->
+            <div class="info-strip d-flex flex-wrap gap-3 px-4 pb-3"
+              *ngIf="feedback.semester || feedback.subject || feedback.starRating">
+
+              <div class="info-chip" *ngIf="feedback.semester">
+                <span class="info-chip-label"><i class="bi bi-mortarboard-fill me-1"></i>Semester</span>
+                <span class="info-chip-value sem-color">Semester {{ feedback.semester }}</span>
+              </div>
+
+              <div class="info-chip" *ngIf="feedback.subject">
+                <span class="info-chip-label"><i class="bi bi-book-fill me-1"></i>Subject</span>
+                <span class="info-chip-value sub-color">{{ feedback.subject }}</span>
+              </div>
+
+              <div class="info-chip" *ngIf="feedback.starRating">
+                <span class="info-chip-label"><i class="bi bi-star-fill me-1"></i>Rating</span>
+                <span class="info-chip-value">
+                  <span *ngFor="let star of getStarArray()" [class.star-filled]="star <= feedback.starRating"
+                    [class.star-empty]="star > feedback.starRating" class="star-sm">★</span>
+                  <span class="text-white-50 ms-1 small">{{ feedback.starRating }}/5</span>
+                </span>
+              </div>
+            </div>
+
+            <!-- Divider -->
+            <div class="mx-4" style="border-top:1px solid rgba(255,255,255,0.08);"></div>
+
+            <!-- Question & Answer -->
+            <div class="feedback-content mx-4 my-3 p-3 rounded">
+              <div class="mb-2">
+                <span class="field-label text-info"><i class="bi bi-question-circle-fill me-1"></i>Question</span>
+                <p class="mb-0 mt-1 fw-medium" style="color:white;">{{ feedback.question || '—' }}</p>
+              </div>
+              <div class="mt-3">
+                <span class="field-label text-success"><i class="bi bi-chat-left-dots-fill me-1"></i>Answer</span>
+                <p class="mb-0 mt-1" style="color:#cbd5e0;">{{ feedback.answer || '—' }}</p>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Empty state -->
+          <div *ngIf="paginatedFeedbacks.length === 0" class="text-center text-white-50 py-5">
+            <i class="bi bi-inbox fs-1 d-block mb-3"></i>
+            No feedback found.
+          </div>
+        </div>
+
+        <!-- ════════════════════════════════════════════════════════════════
+             VIEW: Student Responses (Grouped by Question)
+             ════════════════════════════════════════════════════════════════ -->
+        <div id="GroupedResponsesFeed" class="feedback-feed mt-2" *ngIf="showTable && viewMode === 'responses'">
+
+          <div *ngFor="let group of groupedResponses; let gi = index"
+            class="glass-panel mb-4 animate-fade-in grouped-question-card">
+
+            <!-- ── Question Header ── -->
+            <div class="grouped-header px-4 pt-4 pb-3">
+              <div class="d-flex align-items-start gap-3">
+                <div class="question-icon-circle">
+                  <i class="bi bi-patch-question-fill"></i>
+                </div>
+                <div class="flex-grow-1">
+                  <h5 class="mb-1 fw-bold" style="color:#4fd1c5;">{{ group.question }}</h5>
+                  <div class="d-flex flex-wrap gap-2 mt-2">
+                    <span class="detail-chip sem-chip" *ngIf="group.semester">
+                      <i class="bi bi-mortarboard-fill me-1"></i>Semester {{ group.semester }}
+                    </span>
+                    <span class="detail-chip sub-chip" *ngIf="group.subject">
+                      <i class="bi bi-book-fill me-1"></i>{{ group.subject }}
+                    </span>
+                    <span class="detail-chip star-chip" *ngIf="group.starRating">
+                      <i class="bi bi-star-fill me-1"></i>{{ group.starRating }}/5
+                    </span>
+                    <span class="detail-chip response-count-chip">
+                      <i class="bi bi-people-fill me-1"></i>{{ group.responses.length }} Response{{
+                      group.responses.length !== 1 ? 's' : '' }}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Divider -->
+            <div class="mx-4" style="border-top:1px solid rgba(255,255,255,0.08);"></div>
+
+            <!-- ── Student Responses List ── -->
+            <div class="responses-list px-4 py-3">
+              <div *ngFor="let resp of group.responses; let ri = index" class="response-item mb-3">
+                <div class="d-flex align-items-start gap-3">
+                  <div class="response-avatar">
+                    {{ (resp.username || 'S')[0].toUpperCase() }}
+                  </div>
+                  <div class="flex-grow-1">
+                    <div class="d-flex align-items-center gap-2 mb-1">
+                      <span class="fw-semibold" style="color:#a78bfa;">{{ resp.username || 'Student' }}</span>
+                      <span class="type-badge type-badge-response" style="font-size:0.65rem; padding:2px 8px;">
+                        <i class="bi bi-person-fill me-1"></i>Student
+                      </span>
+                    </div>
+                    <div class="response-text-box p-3 rounded">
+                      <p class="mb-0" style="color:#e2e8f0; line-height:1.6;">{{ resp.answer || '—' }}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Empty state -->
+          <div *ngIf="groupedResponses.length === 0" class="text-center text-white-50 py-5">
+            <i class="bi bi-inbox fs-1 d-block mb-3"></i>
+            No student responses found.
+          </div>
+        </div>
+
+        <!-- ── Pagination ──────────────────────────────────────────────── -->
+        <div class="pagination-controls d-flex justify-content-center align-items-center mt-4 gap-3"
+          *ngIf="showTable && viewMode !== 'responses' && totalPages > 1">
+          <button class="btn btn-outline-light btn-sm px-3" (click)="previousPage()" [disabled]="currentPage === 1">
+            <i class="bi bi-chevron-left"></i> Previous
+          </button>
+          <span class="text-white-50">Page {{ currentPage }} of {{ totalPages }}</span>
+          <button class="btn btn-outline-light btn-sm px-3" (click)="nextPage()"
+            [disabled]="currentPage === totalPages">
+            Next <i class="bi bi-chevron-right"></i>
+          </button>
+        </div>
+
+      </div><!-- /container-fluid -->
+    </main>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     Create Feedback Question Modal
+     ══════════════════════════════════════════════════════════════════════════ -->
+<div class="modal fade" id="feedbackModal" tabindex="-1" aria-labelledby="feedbackModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content" style="background:#1a202c; border:1px solid rgba(79,209,197,0.3); border-radius:16px;">
+
+      <!-- Modal Header -->
+      <div class="modal-header" style="border-bottom:1px solid rgba(79,209,197,0.2);">
+        <h5 class="modal-title fw-bold" id="feedbackModalLabel" style="color:#4fd1c5;">
+          <i class="bi bi-plus-circle-fill me-2"></i>Create Feedback Question
+        </h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"
+          (click)="resetModal()"></button>
+      </div>
+
+      <!-- Modal Body -->
+      <div class="modal-body p-4">
+        <form (ngSubmit)="addFeedbackQuestion()">
+
+          <!-- Row 1: Semester + Subject -->
+          <div class="row g-3 mb-3">
+            <div class="col-md-6">
+              <label class="form-label text-white fw-semibold">
+                <i class="bi bi-mortarboard-fill me-1 text-info"></i>Select Semester <span class="text-danger">*</span>
+              </label>
+              <select class="form-select modal-input" [(ngModel)]="selectedSemester" name="selectedSemester"
+                (change)="onSemesterChange()" required>
+                <option [ngValue]="null" disabled>-- Choose Semester --</option>
+                <option *ngFor="let s of semesters" [ngValue]="s">Semester {{ s }}</option>
+              </select>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label text-white fw-semibold">
+                <i class="bi bi-book-fill me-1 text-warning"></i>Select Subject <span class="text-danger">*</span>
+              </label>
+              <select class="form-select modal-input" [(ngModel)]="selectedSubjectId" name="selectedSubjectId"
+                (change)="onSubjectChange()" [disabled]="!selectedSemester" required>
+                <option [ngValue]="null" disabled>-- Choose Subject --</option>
+                <option *ngFor="let sub of filteredSubjects" [ngValue]="sub.id">
+                  {{ sub.subject }} ({{ sub.subjectCode }})
+                </option>
+              </select>
+              <small *ngIf="selectedSemester && filteredSubjects.length === 0" class="text-warning">
+                No subjects found for this semester.
+              </small>
+            </div>
+          </div>
+
+          <!-- Row 2: Feedback Question -->
+          <div class="mb-3">
+            <label class="form-label text-white fw-semibold">
+              <i class="bi bi-question-circle-fill me-1 text-info"></i>Feedback Question <span
+                class="text-danger">*</span>
+            </label>
+            <input type="text" class="form-control modal-input"
+              placeholder="e.g. How well does the teacher explain concepts?" [(ngModel)]="newFeedbackQuestion"
+              name="newFeedbackQuestion" required />
+          </div>
+
+          <!-- Row 3: Star Rating -->
+          <div class="mb-4">
+            <label class="form-label text-white fw-semibold">
+              <i class="bi bi-star-fill me-1 text-warning"></i>Star Rating <span class="text-danger">*</span>
+            </label>
+            <div class="star-rating-input d-flex align-items-center gap-1">
+              <span *ngFor="let star of getStarArray()" class="star-btn"
+                [class.star-active]="star <= (hoverRating || starRating)" (mouseenter)="setHover(star)"
+                (mouseleave)="clearHover()" (click)="setRating(star)">★</span>
+              <span class="text-white-50 ms-2 small">
+                {{ starRating > 0 ? starRating + ' / 5' : 'Click to rate' }}
+              </span>
+            </div>
+          </div>
+
+          <!-- Modal Footer -->
+          <div class="d-flex justify-content-end gap-2">
+            <button type="button" class="btn btn-outline-secondary px-4" data-bs-dismiss="modal" (click)="resetModal()">
+              Cancel
+            </button>
+            <button type="button" class="btn btn-primary px-4" (click)="addFeedbackQuestion()">
+              <i class="bi bi-check2-circle me-1"></i>Add Question
+            </button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

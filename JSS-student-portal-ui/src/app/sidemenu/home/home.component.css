@@ -1,0 +1,293 @@
+/* General body styling */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Poppins', sans-serif;
+  background-color: #f8f9fa;
+  /* Light grey bg */
+}
+
+/* Sidebar styling */
+/* Sidebar styling */
+.sidebar {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  width: 250px;
+  /* Fixed width for the sidebar */
+  background-color: #222;
+  color: #fff;
+  padding-top: 20px;
+  transition: all 0.3s ease;
+  overflow-y: auto;
+  z-index: 1000;
+}
+
+.sidebar.sidebar-closed {
+  width: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.sidebar .nav-link {
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  /* Added horizontal padding */
+  border-radius: 0.5rem;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  margin: 0 10px;
+  /* Added side margin */
+  white-space: nowrap;
+}
+
+.sidebar .nav-link i {
+  padding-right: 10px;
+}
+
+.sidebar .nav-link:hover,
+.sidebar .nav-link.active {
+  background-color: #444;
+  color: #ffcc00;
+}
+
+/* Content area styling */
+main {
+  margin-left: 250px;
+  /* Space for the fixed sidebar */
+  min-height: 100vh;
+  background-color: #f4f6f9;
+  /* Dashboard background */
+  transition: all 0.3s ease;
+}
+
+main.sidebar-closed {
+  margin-left: 0;
+}
+
+/* Toggle Button */
+.toggle-btn {
+  position: fixed;
+  top: 15px;
+  left: 260px;
+  z-index: 1100;
+  background-color: #333;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 8px 12px;
+  transition: left 0.3s ease;
+  cursor: pointer;
+}
+
+.toggle-btn.sidebar-closed {
+  left: 15px;
+}
+
+.toggle-btn:hover {
+  background-color: #555;
+}
+
+/* Dashboard Hero Header */
+.dashboard-hero {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('/college1.jpg');
+  background-size: cover;
+  background-position: center;
+  color: white;
+  padding: 60px 40px;
+  border-radius: 0 0 15px 15px;
+  margin-bottom: 30px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.dashboard-hero h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.dashboard-hero p {
+  font-size: 1.2rem;
+  opacity: 0.9;
+}
+
+/* Dashboard Stats Cards */
+.stat-card {
+  border: none;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.stat-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+}
+
+.stat-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  color: white;
+}
+
+.stat-icon.bg-attendance {
+  background: #4e73df;
+}
+
+/* Blue */
+.stat-icon.bg-assignments {
+  background: #f6c23e;
+}
+
+/* Yellow */
+.stat-icon.bg-cgpa {
+  background: #1cc88a;
+}
+
+/* Green */
+.stat-icon.bg-nextclass {
+  background: #36b9cc;
+}
+
+/* Cyan */
+
+
+.stat-content h6 {
+  color: #858796;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  margin-bottom: 5px;
+}
+
+.stat-content h3 {
+  color: #5a5c69;
+  font-weight: 700;
+  margin-bottom: 0;
+}
+
+/* Content Cards (Announcements, Student Profile) */
+.content-card {
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  background: white;
+  margin-bottom: 20px;
+  overflow: hidden;
+}
+
+.content-card-header {
+  padding: 15px 20px;
+  border-bottom: 1px solid #e3e6f0;
+  background-color: #f8f9fc;
+  font-weight: 700;
+  color: #4e73df;
+  display: flex;
+  align-items: center;
+}
+
+.content-card-header i {
+  margin-right: 10px;
+}
+
+.content-card-body {
+  padding: 20px;
+}
+
+/* Announcement List Styles */
+.announcement-list {
+  padding: 0;
+  list-style: none;
+  margin: 0;
+}
+
+.announcement-item {
+  padding: 15px 0;
+  border-bottom: 1px solid #eaecf4;
+  display: flex;
+  align-items: start;
+}
+
+.announcement-item:last-child {
+  border-bottom: none;
+}
+
+.announcement-date {
+  font-size: 0.8rem;
+  color: #858796;
+  margin-bottom: 5px;
+  display: block;
+}
+
+.announcement-text {
+  margin: 0;
+  font-size: 0.95rem;
+  color: #5a5c69;
+}
+
+/* Student Profile Styling within card */
+.profile-detail-row {
+  display: flex;
+  margin-bottom: 12px;
+  border-bottom: 1px solid #f0f0f0;
+  padding-bottom: 8px;
+}
+
+.profile-detail-label {
+  width: 120px;
+  font-weight: 600;
+  color: #5a5c69;
+}
+
+.profile-detail-value {
+  flex: 1;
+  color: #2e2f3e;
+}
+
+/* Logo styling retained but adjusted */
+.logo {
+  width: 100px;
+  height: 100px;
+  background-image: url(https://res.cloudinary.com/saify/image/upload/v1539009756/icon.jpg);
+  /* Keep existing logo unless we replace */
+  background-size: cover;
+  border-radius: 50%;
+  margin: 0 auto 20px auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: block;
+  /* Centered block */
+  float: none;
+  /* Changed from float:right */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .sidebar {
+    position: relative;
+    width: 100%;
+    height: auto;
+    position: static;
+  }
+
+  main {
+    margin-left: 0;
+    padding: 0;
+  }
+
+  .dashboard-hero {
+    padding: 40px 20px;
+    text-align: center;
+  }
+}

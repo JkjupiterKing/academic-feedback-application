@@ -1,0 +1,190 @@
+<div class="container-fluid">
+  <div class="row no-gutters">
+    <nav class="col-md-3 col-lg-2 d-md-block bg-dark sidebar" id="sidebarMenu">
+      <div class="position-sticky">
+        <ul class="nav flex-column">
+          <li class="nav-item mb-3">
+            <a routerLink="/sidemenu/home" routerLinkActive="active" (click)="home()" class="nav-link text-white">
+              <i class="bi bi-house mr-2"></i> Home
+            </a>
+          </li>
+          <li class="nav-item mb-3">
+            <a routerLink="/sidemenu/time-table" routerLinkActive="active" (click)="timetable()"
+              class="nav-link text-white">
+              <i class="bi bi-calendar3 mr-2"></i> Time Table
+            </a>
+          </li>
+          <li class="nav-item mb-3">
+            <a routerLink="/sidemenu/staff-management" routerLinkActive="active" (click)="staffmanagement()"
+              class="nav-link text-white">
+              <i class="bi bi-person-fill mr-2"></i> Staff Management
+            </a>
+          </li>
+          <li class="nav-item mb-3">
+            <a routerLink="/sidemenu/students-management" routerLinkActive="active" (click)="studentsmanagement()"
+              class="nav-link text-white">
+              <i class="bi bi-person-workspace mr-2"></i> Students Management
+            </a>
+          </li>
+          <li class="nav-item mb-3">
+            <a routerLink="/sidemenu/attendance-management" routerLinkActive="active"
+              (click)="newAttendancemanagement()" class="nav-link text-white">
+              <i class="bi bi-check-square mr-2"></i>Attendance Management
+            </a>
+          </li>
+
+          <li class="nav-item mb-3">
+            <a routerLink="/sidemenu/question-bank" routerLinkActive="active" (click)="questionbank()"
+              class="nav-link text-white">
+              <i class="bi bi-book mr-2"></i> Question Bank
+            </a>
+          </li>
+          <li class="nav-item mb-3">
+            <a routerLink="/sidemenu/ia-module" routerLinkActive="active" (click)="iamodule()"
+              class="nav-link text-white">
+              <i class="bi bi-card-list mr-2"></i> IA Module
+            </a>
+          </li>
+          <li class="nav-item mb-3">
+            <a routerLink="/sidemenu/feedback-system" routerLinkActive="active" (click)="feedbacksystem()"
+              class="nav-link text-white">
+              <i class="bi bi-chat-dots mr-2"></i> Feedback System
+            </a>
+          </li>
+          <li class="nav-item mb-3">
+            <a routerLink="/sidemenu/lesson-plan" routerLinkActive="active" (click)="lessonplan()"
+              class="nav-link text-white">
+              <i class="bi bi-file-earmark-text mr-2"></i> Lesson Plan
+            </a>
+          </li>
+          <li class="nav-item mb-3">
+            <a routerLink="/sidemenu/subject-management" routerLinkActive="active" (click)="subjectmanagement()"
+              class="nav-link text-white">
+              <i class="bi bi-journal mr-2"></i> Subject Management
+            </a>
+          </li>
+          <li class="nav-item mb-3">
+            <a routerLink="/sidemenu/teaching-aids" routerLinkActive="active" (click)="teachingaids()"
+              class="nav-link text-white">
+              <i class="bi bi-easel mr-2"></i> Teaching Aids
+            </a>
+          </li>
+
+          <li class="nav-item mb-3">
+            <a (click)="logout()" class="nav-link text-white">
+              <i class="bi bi-box-arrow-right mr-2"></i> Logout
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="page-wrapper master-layout-bg"
+      style="background-image: url('https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?q=80&w=2073&auto=format&fit=crop');">
+      <main class="col-md-9 col-lg-10 px-4 pt-4 main-content">
+        <div class="glass-card p-4 animate-fade-in text-white">
+          <h2 class="text-center text-white mb-4">UPLOAD QUESTION BANK DOCUMENTS</h2>
+
+          <!-- Semester Selection Dropdown -->
+          <div class="form-group mb-3">
+            <label class="form-label"><b>Select Semester</b></label>
+            <select [(ngModel)]="selectedSemester" name="semester" id="semester"
+              class="form-select glass-input text-white" (change)="onSemesterChange()">
+              <option value="" disabled selected class="text-dark">Select Semester</option>
+              <option *ngFor="let sem of semesters" [value]="sem" class="text-dark">
+                {{ sem }}
+              </option>
+            </select>
+          </div>
+
+          <!-- Subject Selection -->
+          <div class="form-group mb-3">
+            <label class="form-label"><b>Select Subject</b></label>
+            <select [(ngModel)]="selectedSubject" name="subject" class="form-select glass-input text-white" required
+              [disabled]="!selectedSemester || loadingSubjects">
+              <option value="" disabled class="text-dark">Select Subject</option>
+              <option *ngFor="let subject of subjects" [value]="subject.id" class="text-dark">
+                {{ subject.subject }} ({{ subject.subjectCode }})
+              </option>
+            </select>
+          </div>
+
+          <div class="form-group mb-3">
+            <label for="documentType" class="form-label">Document Type:</label>
+            <select [(ngModel)]="selectedDocumentType" class="form-select glass-input text-white" id="documentType">
+              <option value="" disabled class="text-dark">Choose a Document...</option>
+              <option value="pdf" class="text-dark">PDF</option>
+              <option value="excel" class="text-dark">Excel</option>
+              <option value="word" class="text-dark">Word</option>
+              <option value="image" class="text-dark">Image</option>
+              <option value="ppt" class="text-dark">PowerPoint</option>
+            </select>
+          </div>
+
+          <!-- File Input -->
+          <div class="form-group mb-4">
+            <label for="fileInput">Choose File:</label>
+            <input type="file" id="fileInput" (change)="onFileChange($event)"
+              class="form-control glass-input text-white" />
+          </div>
+
+          <!-- Buttons -->
+          <div class="d-grid gap-3 d-md-flex justify-content-md-center">
+            <button (click)="uploadFile()" class="premium-btn">
+              <i class="bi bi-cloud-upload me-2"></i>Upload Document
+            </button>
+            <button (click)="viewQuestionBank()" class="btn btn-outline-info rounded-pill px-4">
+              <i class="bi bi-eye me-2"></i>View Documents
+            </button>
+          </div>
+        </div>
+
+        <!-- Modal for Viewing Documents -->
+        <div *ngIf="showModal" class="modal-overlay animate-fade-in" (click)="closeModal()">
+          <div class="glass-card modal-content p-4" (click)="$event.stopPropagation()">
+            <span (click)="closeModal()" class="close text-white">&times;</span>
+            <h3 class="text-white mb-4">Question Bank Documents</h3>
+
+            <!-- Semester Dropdown inside Modal -->
+            <div class="form-group mb-4">
+              <label for="semesterModal">Select Semester:</label>
+              <select [(ngModel)]="selectedSemesterInModal" name="semesterModal" id="semesterModal"
+                class="form-select glass-input text-white" (change)="getDocumentsBySemester()">
+                <option value="" disabled selected class="text-dark">Select Semester</option>
+                <option *ngFor="let sem of semesters" [value]="sem" class="text-dark">
+                  {{ sem }}
+                </option>
+              </select>
+            </div>
+
+            <!-- Display Documents in Table -->
+            <div class="table-responsive">
+              <table class="table glass-table">
+                <thead>
+                  <tr>
+                    <th>Document Name</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let doc of questionBankDocuments">
+                    <td class="text-white">{{ doc.fileName }}</td>
+                    <td>
+                      <a [href]="getDownloadLink(doc.semester, doc.fileName)" download
+                        class="btn btn-sm btn-info rounded-pill">
+                        <i class="bi bi-download me-1"></i>Download
+                      </a>
+                    </td>
+                  </tr>
+                  <tr *ngIf="questionBankDocuments.length === 0">
+                    <td colspan="2" class="text-center text-white-50">No documents found.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+</div>

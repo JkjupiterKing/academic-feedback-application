@@ -1,0 +1,223 @@
+<div class="container-fluid">
+  <div class="row no-gutters">
+    <nav [class.sidebar-closed]="!isSidebarOpen" class="d-md-block bg-dark sidebar" id="sidebarMenu">
+      <div class="position-sticky">
+        <ul class="nav flex-column">
+          <li class="nav-item mb-3">
+            <a routerLink="/home" routerLinkActive="active" (click)="home()" class="nav-link text-white">
+              <i class="bi bi-house mr-2"></i> Home
+            </a>
+          </li>
+          <li class="nav-item mb-3">
+            <a routerLink="/time-table" routerLinkActive="active" (click)="timetable()" class="nav-link text-white">
+              <i class="bi bi-calendar3 mr-2"></i> Time Table
+            </a>
+          </li>
+
+          <!-- <li class="nav-item mb-3">
+            <a
+              routerLink="/attendance-management"
+              routerLinkActive="active"
+              (click)="attendancemanagement()"
+              class="nav-link text-white"
+            >
+              <i class="bi bi-check-square mr-2"></i> Attendance Management
+            </a>
+          </li> -->
+          <li class="nav-item mb-3">
+            <a routerLink="/attendance-management" routerLinkActive="active" (click)="newAttendancemanagement()"
+              class="nav-link text-white">
+              <i class="bi bi-check-square mr-2"></i> Attendance Management
+            </a>
+          </li>
+          <li class="nav-item mb-3">
+            <a routerLink="/ia-module" routerLinkActive="active" (click)="iamodule()" class="nav-link text-white">
+              <i class="bi bi-card-list mr-2"></i> IA Module
+            </a>
+          </li>
+          <li class="nav-item mb-3">
+            <a routerLink="/question-bank" routerLinkActive="active" (click)="questionbank()"
+              class="nav-link text-white">
+              <i class="bi bi-book mr-2"></i> Question Bank
+            </a>
+          </li>
+          <!-- <li class="nav-item mb-3">
+            <a routerLink="/ia-module" routerLinkActive="active" (click)="iamodule()" class="nav-link text-white">
+              <i class="bi bi-card-list mr-2"></i> IA Module
+            </a>
+          </li> -->
+          <li class="nav-item mb-3">
+            <a routerLink="/feedback-system" routerLinkActive="active" (click)="feedbacksystem()"
+              class="nav-link text-white">
+              <i class="bi bi-chat-dots mr-2"></i> Feedback System
+            </a>
+          </li>
+          <li class="nav-item mb-3">
+            <a routerLink="/lesson-plan" routerLinkActive="active" (click)="lessonplan()" class="nav-link text-white">
+              <i class="bi bi-file-earmark-text mr-2"></i> Lesson Plan
+            </a>
+          </li>
+          <li class="nav-item mb-3">
+            <a routerLink="/teaching-aids" routerLinkActive="active" (click)="teachingaids()"
+              class="nav-link text-white">
+              <i class="bi bi-easel mr-2"></i> Teaching Aids
+            </a>
+          </li>
+          <!-- <li class="nav-item mb-3">
+            <a routerLink="/personal-documents" routerLinkActive="active" (click)="personaldocuments()" class="nav-link text-white">
+              <i class="bi bi-folder mr-2"></i> Personal Documents
+            </a>
+          </li> -->
+          <li class="nav-item mb-3">
+            <a (click)="logout()" class="nav-link text-white">
+              <i class="bi bi-box-arrow-right mr-2"></i> Logout
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <main [class.sidebar-closed]="!isSidebarOpen" class="px-0">
+      <button class="toggle-btn btn btn-dark" [class.sidebar-closed]="!isSidebarOpen" (click)="toggleSidebar()">
+        <i class="bi bi-list"></i>
+      </button>
+
+      <!-- Dashboard Hero -->
+      <div class="dashboard-hero text-center">
+        <h1>Welcome to GPT, Chamarajnagara</h1>
+        <p class="lead">Student Portal Dashboard</p>
+      </div>
+
+      <div class="container-fluid px-4">
+
+        <!-- Stats Cards -->
+        <div class="row mb-4">
+          <div class="col-xl-3 col-md-6 mb-4">
+            <div class="stat-card">
+              <div class="stat-content">
+                <h6>Attendance</h6>
+                <h3>85%</h3>
+              </div>
+              <div class="stat-icon bg-attendance">
+                <i class="bi bi-people-fill"></i>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-3 col-md-6 mb-4">
+            <div class="stat-card">
+              <div class="stat-content">
+                <h6>CGPA</h6>
+                <h3>9.2</h3>
+              </div>
+              <div class="stat-icon bg-cgpa">
+                <i class="bi bi-award-fill"></i>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-3 col-md-6 mb-4">
+            <div class="stat-card">
+              <div class="stat-content">
+                <h6>Assignments</h6>
+                <h3>3 Pending</h3>
+              </div>
+              <div class="stat-icon bg-assignments">
+                <i class="bi bi-journal-text"></i>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-3 col-md-6 mb-4">
+            <div class="stat-card">
+              <div class="stat-content">
+                <h6>Next Class</h6>
+                <h3>Physics</h3>
+              </div>
+              <div class="stat-icon bg-nextclass">
+                <i class="bi bi-clock-fill"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Main Content Grid -->
+        <div class="row">
+
+          <!-- Announcements -->
+          <div class="col-lg-8 mb-4">
+            <div class="content-card h-100">
+              <div class="content-card-header">
+                <i class="bi bi-megaphone-fill"></i> Announcements
+              </div>
+              <div class="content-card-body">
+                <ul class="announcement-list">
+                  <li class="announcement-item">
+                    <div class="ms-2">
+                      <span class="announcement-date">Feb 14, 2026</span>
+                      <p class="announcement-text">Mid-term examination schedule has been released. Check the Time Table
+                        section.</p>
+                    </div>
+                  </li>
+                  <li class="announcement-item">
+                    <div class="ms-2">
+                      <span class="announcement-date">Feb 12, 2026</span>
+                      <p class="announcement-text">Guest lecture on 'Future of AI' by Dr. Smith on Friday at 10 AM in
+                        the Auditorium.</p>
+                    </div>
+                  </li>
+                  <li class="announcement-item">
+                    <div class="ms-2">
+                      <span class="announcement-date">Feb 10, 2026</span>
+                      <p class="announcement-text">Library will remain closed on second Saturday for maintenance.</p>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- Student Profile -->
+          <div class="col-lg-4 mb-4">
+            <div class="content-card h-100">
+              <div class="content-card-header">
+                <i class="bi bi-person-circle"></i> Student Profile
+              </div>
+              <div class="content-card-body">
+                <div *ngIf="loggedInStudent; else loading">
+                  <div class="logo"></div>
+                  <h5 class="text-center mb-3">{{ loggedInStudent.userName }}</h5>
+                  <p class="text-center text-muted mb-4">{{ loggedInStudent.regno }}</p>
+
+                  <div class="profile-detail-row">
+                    <span class="profile-detail-label">Department:</span>
+                    <span class="profile-detail-value">{{ loggedInStudent.dept }}</span>
+                  </div>
+                  <div class="profile-detail-row">
+                    <span class="profile-detail-label">Semester:</span>
+                    <span class="profile-detail-value">{{ loggedInStudent.semester }}</span>
+                  </div>
+                  <div class="profile-detail-row">
+                    <span class="profile-detail-label">Email:</span>
+                    <span class="profile-detail-value">{{ loggedInStudent.email }}</span>
+                  </div>
+                  <div class="profile-detail-row">
+                    <span class="profile-detail-label">Phone:</span>
+                    <span class="profile-detail-value">{{ loggedInStudent.phoneno }}</span>
+                  </div>
+                </div>
+                <ng-template #loading>
+                  <div class="text-center py-5">
+                    <div class="spinner-border text-primary" role="status">
+                      <span class="visually-hidden">Loading...</span>
+                    </div>
+                    <p class="mt-2">Loading profile...</p>
+                  </div>
+                </ng-template>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </main>
+  </div>
+</div>

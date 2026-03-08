@@ -1,0 +1,234 @@
+<div class="container-fluid">
+  <div class="row no-gutters">
+    <!-- Sidebar -->
+    <nav class="col-md-3 col-lg-2 d-md-block bg-dark sidebar" id="sidebarMenu">
+      <div class="position-sticky">
+        <ul class="nav flex-column">
+          <li class="nav-item mb-3">
+            <a routerLink="/sidemenu/home" routerLinkActive="active" (click)="home()" class="nav-link text-white">
+              <i class="bi bi-house mr-2"></i> Home
+            </a>
+          </li>
+          <li class="nav-item mb-3">
+            <a routerLink="/sidemenu/time-table" routerLinkActive="active" (click)="timetable()"
+              class="nav-link text-white">
+              <i class="bi bi-calendar3 mr-2"></i> Time Table
+            </a>
+          </li>
+          <li class="nav-item mb-3">
+            <a routerLink="/sidemenu/staff-management" routerLinkActive="active" (click)="staffmanagement()"
+              class="nav-link text-white">
+              <i class="bi bi-person-fill mr-2"></i> Staff Management
+            </a>
+          </li>
+          <li class="nav-item mb-3">
+            <a routerLink="/sidemenu/students-management" routerLinkActive="active" (click)="studentsmanagement()"
+              class="nav-link text-white">
+              <i class="bi bi-person-workspace mr-2"></i> Students Management
+            </a>
+          </li>
+          <li class="nav-item mb-3">
+            <a routerLink="/sidemenu/attendance-management" routerLinkActive="active"
+              (click)="newAttendancemanagement()" class="nav-link text-white">
+              <i class="bi bi-check-square mr-2"></i>Attendance Management
+            </a>
+          </li>
+
+          <li class="nav-item mb-3">
+            <a routerLink="/sidemenu/question-bank" routerLinkActive="active" (click)="questionbank()"
+              class="nav-link text-white">
+              <i class="bi bi-book mr-2"></i> Question Bank
+            </a>
+          </li>
+          <li class="nav-item mb-3">
+            <a routerLink="/sidemenu/ia-module" routerLinkActive="active" (click)="iamodule()"
+              class="nav-link text-white">
+              <i class="bi bi-card-list mr-2"></i> IA Module
+            </a>
+          </li>
+          <li class="nav-item mb-3">
+            <a routerLink="/sidemenu/feedback-system" routerLinkActive="active" (click)="feedbacksystem()"
+              class="nav-link text-white">
+              <i class="bi bi-chat-dots mr-2"></i> Feedback System
+            </a>
+          </li>
+          <li class="nav-item mb-3">
+            <a routerLink="/sidemenu/lesson-plan" routerLinkActive="active" (click)="lessonplan()"
+              class="nav-link text-white">
+              <i class="bi bi-file-earmark-text mr-2"></i> Lesson Plan
+            </a>
+          </li>
+          <li class="nav-item mb-3">
+            <a routerLink="/sidemenu/subject-management" routerLinkActive="active" (click)="subjectmanagement()"
+              class="nav-link text-white">
+              <i class="bi bi-journal mr-2"></i> Subject Management
+            </a>
+          </li>
+          <li class="nav-item mb-3">
+            <a routerLink="/sidemenu/teaching-aids" routerLinkActive="active" (click)="teachingaids()"
+              class="nav-link text-white">
+              <i class="bi bi-easel mr-2"></i> Teaching Aids
+            </a>
+          </li>
+
+          <li class="nav-item mb-3">
+            <a (click)="logout()" class="nav-link text-white">
+              <i class="bi bi-box-arrow-right mr-2"></i> Logout
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <main class="page-wrapper master-layout-bg"
+      style="background-image: url('https://images.unsplash.com/photo-1454162852142-2e63b6525790?q=80&w=2070&auto=format&fit=crop');">
+      <div class="animate-fade-in">
+        <div class="container">
+          <!-- Outer Border for IA Module -->
+          <div class="card glass-card main-card shadow-lg">
+            <div class="card-body p-4">
+              <h2 class="text-center mb-5 text-accent" style="color: #4fd1c5; font-weight: 800; letter-spacing: 1px;">
+                UPLOAD IA MARKS</h2>
+
+              <form (ngSubmit)="onSubmit()" #iaForm="ngForm" class="mx-auto">
+                <!-- Semester Selection -->
+                <div class="form-group mb-4">
+                  <label class="form-label custom-label">Select Semester</label>
+                  <select [(ngModel)]="selectedSemester" name="semester" class="form-select custom-input"
+                    (change)="onSemesterChange()" required [disabled]="loadingSemesters">
+                    <option value="" disabled>Select Semester</option>
+                    <option *ngFor="let sem of semesters" [value]="sem">
+                      {{ sem }}
+                    </option>
+                  </select>
+                </div>
+
+                <!-- Subject Selection -->
+                <div class="form-group mb-4">
+                  <label class="form-label custom-label">Select Subject</label>
+                  <select [(ngModel)]="selectedSubject" name="subject" class="form-select custom-input" required
+                    [disabled]="!selectedSemester || loadingSubjects">
+                    <option value="" disabled>Select Subject</option>
+                    <option *ngFor="let subject of subjects" [value]="subject.subject">
+                      {{ subject.subject }} ({{ subject.subjectCode }})
+                    </option>
+                  </select>
+                </div>
+
+                <!-- File Upload -->
+                <div class="form-group mb-4">
+                  <label class="form-label custom-label">Upload IA Marks Document</label>
+                  <input type="file" class="form-control custom-input" (change)="onFileSelect($event)" required />
+                </div>
+
+                <!-- Upload Progress -->
+                <div class="progress mb-4" *ngIf="uploadProgress > 0">
+                  <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+                    [style.width.%]="uploadProgress" [attr.aria-valuenow]="uploadProgress" aria-valuemin="0"
+                    aria-valuemax="100">
+                  </div>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="text-center mt-5">
+                  <button type="submit" class="premium-btn w-100"
+                    [disabled]="!iaForm.valid || !selectedFile || submitting">
+                    <span *ngIf="!submitting">Upload IA Marks</span>
+                    <span *ngIf="submitting">Uploading...</span>
+                  </button>
+                </div>
+              </form>
+
+              <!-- Success Message -->
+              <div class="alert alert-success mt-4 glass-card border-0 text-center" *ngIf="uploadSuccess"
+                style="background: rgba(72, 187, 120, 0.2) !important;">
+                File uploaded successfully!
+              </div>
+
+              <!-- Error Message -->
+              <div class="alert alert-danger mt-4 glass-card border-0 text-center" *ngIf="errorMessage"
+                style="background: rgba(245, 101, 101, 0.2) !important;">
+                {{ errorMessage }}
+              </div>
+
+              <!-- View Documents Button -->
+              <div class="text-center mt-4">
+                <button (click)="viewIADoc()" class="btn btn-outline-light rounded-pill px-5">
+                  <i class="bi bi-eye me-2"></i> View IA Documents
+                </button>
+              </div>
+            </div>
+
+            <!-- Modal for Viewing Documents -->
+            <div *ngIf="showModal" class="modal-overlay animate-fade-in" (click)="closeModal()">
+              <div class="glass-card modal-content" (click)="$event.stopPropagation()">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                  <h3 class="text-accent mb-0" style="color: #4fd1c5;">IA Documents</h3>
+                  <span (click)="closeModal()" class="close" style="cursor: pointer;">&times;</span>
+                </div>
+
+                <div class="row mb-4">
+                  <!-- Semester Dropdown inside Modal -->
+                  <div class="col-md-6 mb-3">
+                    <label class="form-label text-white-50 small">Semester</label>
+                    <select [(ngModel)]="selectedSemesterInModal" name="semesterModal" class="form-select custom-input"
+                      (change)="getFileQuery()">
+                      <option value="" disabled selected>Select Semester</option>
+                      <option *ngFor="let sem of semesters" [value]="sem">
+                        {{ sem }}
+                      </option>
+                    </select>
+                  </div>
+
+                  <div class="col-md-6 mb-3">
+                    <label class="form-label text-white-50 small">Subject</label>
+                    <select [(ngModel)]="selectedSubjectInModal" name="subjectModal" class="form-select custom-input"
+                      (change)="getFileQuery()">
+                      <option value="" disabled>Select Subject</option>
+                      <option *ngFor="let sub of subjectsInModal" [value]="sub.subject">
+                        {{ sub.subject }}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+
+                <!-- Display Documents in Table -->
+                <div class="table-responsive">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th>Document Name</th>
+                        <th class="text-end">Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let doc of iaBankDocuments">
+                        <td>{{ doc.fileName }}</td>
+                        <td class="text-end">
+                          <div class="d-flex justify-content-end gap-3">
+                            <a [href]="getDownloadLink(doc.semester, doc.fileName)" download
+                              class="btn btn-sm btn-outline-info rounded-pill">
+                              <i class="bi bi-download"></i>
+                            </a>
+                            <button class="btn btn-sm btn-outline-danger rounded-pill"
+                              (click)="deleteFile(doc.semester, doc.fileName)">
+                              <i class="bi bi-trash"></i>
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr *ngIf="iaBankDocuments.length === 0">
+                        <td colspan="2" class="text-center text-white-50 py-4">No documents found for selected criteria.
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
